@@ -1,0 +1,4 @@
+[submodule "flight-webui"]
+	path = flight-webui
+	url = https://github.com/ed-word/flight-webui
+	branch = master
