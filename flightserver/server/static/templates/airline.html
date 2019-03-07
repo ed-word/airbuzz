@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>State Wise Distribution</title>
+	<script src="js/bundle.js"></script>
+	<script src="js/utils.js"></script>
+	<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+</head>
+
+<body>
+	<div style="width: 75%">
+		<canvas id="canvas"></canvas>
+	</div>
+<!-- 	<button id="randomizeData">Randomize Data</button> -->
+	<script>
+		var barChartData = {
+			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+			datasets: [{
+				label: 'Air India',
+				backgroundColor: window.chartColors.red,
+				data: [
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+				]
+			}, {
+				label: 'Cathay Pacific',
+				backgroundColor: window.chartColors.blue,
+				data: [
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+				]
+			}, {
+				label: 'Emirates',
+				backgroundColor: window.chartColors.green,
+				data: [
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+					Math.abs(randomScalingFactor()),
+				]
+			}]
+
+		};
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myBar = new Chart(ctx, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					title: {
+						display: true,
+						text: 'Airline distribution'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					responsive: true,
+					scales: {
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+					}
+				}
+			});
+		};
+
+		document.getElementById('randomizeData').addEventListener('click', function() {
+			barChartData.datasets.forEach(function(dataset) {
+				dataset.data = dataset.data.map(function() {
+					return randomScalingFactor();
+				});
+			});
+			window.myBar.update();
+		});
+	</script>
+</body>
+
+</html>
